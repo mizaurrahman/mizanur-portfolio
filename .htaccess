@@ -1,0 +1,11 @@
+# Short-circuit stale browser/CDN caches for theme assets
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|shtml)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=86400, must-revalidate"
+  </FilesMatch>
+</IfModule>
