@@ -2,6 +2,8 @@
 
 Personal portfolio site for [Md. Mizanur Rahman](https://mizanur.info), Software Engineer.
 
+Inspired by the MyStory personal portfolio layout (Oswald + Lato, red accent, one-page resume sections).
+
 ## Live
 
 https://mizanur.info

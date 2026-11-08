@@ -2,15 +2,13 @@
   const year = document.getElementById("year");
   if (year) year.textContent = String(new Date().getFullYear());
 
-  const topbar = document.querySelector(".topbar");
+  const header = document.querySelector(".site-header");
   const toggle = document.querySelector(".nav-toggle");
   const mobileNav = document.querySelector(".mobile-nav");
-  const sideLinks = [...document.querySelectorAll(".side-nav a")];
-  const sectionIds = sideLinks.map((link) => link.dataset.section).filter(Boolean);
 
   const setScrolled = () => {
-    if (!topbar) return;
-    topbar.classList.toggle("scrolled", window.scrollY > 12);
+    if (!header) return;
+    header.classList.toggle("scrolled", window.scrollY > 12);
   };
 
   setScrolled();
@@ -53,21 +51,26 @@
     reveals.forEach((el) => el.classList.add("in"));
   }
 
-  const markActive = () => {
-    if (!sideLinks.length) return;
-    let current = "top";
-    const offset = window.innerHeight * 0.28;
-    for (const id of sectionIds) {
-      const el = id === "top" ? document.getElementById("top") : document.getElementById(id);
-      if (!el) continue;
-      const top = el.getBoundingClientRect().top;
-      if (top - offset <= 0) current = id;
-    }
-    sideLinks.forEach((link) => {
-      link.classList.toggle("active", link.dataset.section === current);
+  const skills = document.querySelectorAll(".skill");
+  if ("IntersectionObserver" in window && skills.length) {
+    const skillIo = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const bar = entry.target.querySelector(".skill__bar span");
+          const value = entry.target.getAttribute("data-value") || "0";
+          if (bar) bar.style.width = `${value}%`;
+          skillIo.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.35 }
+    );
+    skills.forEach((el) => skillIo.observe(el));
+  } else {
+    skills.forEach((el) => {
+      const bar = el.querySelector(".skill__bar span");
+      const value = el.getAttribute("data-value") || "0";
+      if (bar) bar.style.width = `${value}%`;
     });
-  };
-
-  markActive();
-  window.addEventListener("scroll", markActive, { passive: true });
+  }
 })();
