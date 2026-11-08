@@ -144,14 +144,17 @@ textarea {
 
 .brand {
   font-family: var(--display);
-  font-size: 1.55rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  font-size: 1.45rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--white);
 }
 
-.brand span { color: var(--accent); }
+.brand span {
+  color: var(--accent);
+  letter-spacing: 0;
+}
 
 .nav-desktop {
   display: none;
@@ -224,17 +227,23 @@ textarea {
   min-height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
+  align-items: center;
+  gap: 1.5rem;
   background:
     radial-gradient(700px 420px at 80% 10%, rgba(228, 10, 45, 0.18), transparent 60%),
     linear-gradient(160deg, #101010 0%, var(--bg-banner) 45%, #0d0d0d 100%);
   color: var(--white);
-  padding-top: var(--header-h);
+  padding: calc(var(--header-h) + 1.5rem) var(--pad) 3rem;
 }
 
 .banner__media {
   position: relative;
-  min-height: 52vh;
+  width: min(100%, 280px);
+  margin-inline: auto;
+  aspect-ratio: 3 / 4;
+  border-radius: 18px;
   overflow: hidden;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
 }
 
 .banner__media img {
@@ -242,18 +251,23 @@ textarea {
   height: 100%;
   object-fit: cover;
   object-position: center 18%;
-  filter: grayscale(0.15) contrast(1.05);
+  filter: grayscale(0.1) contrast(1.04);
 }
 
 .banner__media::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 45%, rgba(16, 16, 16, 0.85) 100%);
+  inset: auto 0 0;
+  height: 35%;
+  background: linear-gradient(180deg, transparent, rgba(16, 16, 16, 0.55));
+  pointer-events: none;
 }
 
 .banner__content {
-  padding: 2rem var(--pad) 3.5rem;
+  padding: 0;
+  max-width: 40rem;
+  margin-inline: auto;
+  width: 100%;
 }
 
 .banner__hello {
@@ -386,9 +400,13 @@ textarea {
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
 }
 
+.about__frame {
+  max-width: 360px;
+}
+
 .about__frame img {
   width: 100%;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 3 / 4;
   object-fit: cover;
   object-position: center 18%;
 }
@@ -710,23 +728,37 @@ textarea {
   .mobile-nav { display: none !important; }
 
   .banner {
-    grid-template-columns: minmax(280px, 0.95fr) 1.05fr;
-    align-items: stretch;
+    grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: center;
+    max-width: calc(var(--max) + var(--pad) * 2);
+    margin-inline: auto;
+    width: 100%;
   }
 
   .banner__media {
-    min-height: calc(100vh - var(--header-h));
+    width: 100%;
+    margin-inline: 0;
+    max-width: 300px;
   }
 
   .banner__media::after {
-    background: linear-gradient(90deg, transparent 55%, rgba(16, 16, 16, 0.55) 100%);
+    inset: auto 0 0;
+    height: 30%;
+    background: linear-gradient(180deg, transparent, rgba(16, 16, 16, 0.4));
   }
 
   .banner__content {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 3rem clamp(1.5rem, 4vw, 3.5rem) 3.5rem 1.5rem;
+    margin-inline: 0;
+    max-width: none;
+  }
+
+  .about__visual {
+    display: flex;
+    justify-content: center;
   }
 
   .info-list {
